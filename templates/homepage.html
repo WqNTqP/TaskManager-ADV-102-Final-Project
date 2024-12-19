@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title> TaskMate-Homepage </title>
+{% endblock title %}
+
+{% block body %}
+<h1 class="intro">Hey, {{ request.session.username }}</h1>
+
+<!-- Display acceptance message -->
+{% if accept_message %}
+    <div class="alert alert-success">
+        {{ accept_message }}
+    </div>
+{% endif %}
+
+<main class="main-content">
+    <div class="side1">
+        <a href="">        
+            <div class="side1-1 menu active">
+                <svg width="18" height="21" viewBox="0 0 18 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- SVG content here -->
+                </svg>
+                <h3>Task</h3>
+            </div>
+        </a>
+    </div>
+
+        <div class="side2">
+          <div class="todo-box">
+              {% for todo in tasks %}
+              <div class="task">
+                  <h3>{{ todo.description }}</h3>
+                  <h5>Due: {{ todo.deadlineDate }} at {{ todo.deadlineTime }} - Priority: {{ todo.priority }}</h5>
+                  <div class="btns">
+                      <span>Status: {{ todo.status }}</span>
+                      <a href="/edit/{{todo.taskId}}" class="edit-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                              <path fill="#c94f60" d="M42.583,9.067l-3.651-3.65c-0.555-0.556-1.459-0.556-2.015,0l-1.718,1.72l5.664,5.664l1.72-1.718	C43.139,10.526,43.139,9.625,42.583,9.067"/>
+                              <path fill="#f0f0f0" d="M6.905,35.43L5,43l7.571-1.906l0.794-6.567L6.905,35.43z"/>
+                              <path fill="#edbe00" d="M36.032,17.632l-23.46,23.461l-5.665-5.665l23.46-23.461L36.032,17.632z"/>
+                          </svg>
+                      </a>
+                      <a href="/delete/{{todo.taskId}}" class="delete-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                              <path fill="#9575CD" d="M34,12l-6-6h-8l-6,6h-3v28c0,2.2,1.8,4,4,4h18c2.2,0,4-1.8,4-4V12H34z"/>
+                              <path fill="#7454B3" d="M24.5 39h-1c-.8 0-1.5-.7-1.5-1.5v-19c0-.8.7-1.5 1.5-1.5h1c.8 0 1.5.7 1.5 1.5v19C26 38.3 25.3 39 24.5 39zM31.5 39L31.5 39c-.8 0-1.5-.7-1.5-1.5v-19c0-.8.7-1.5 1.5-1.5l0 0c.8 0 1.5.7 1.5 1.5v19C33 38.3 32.3 39 31.5 39zM16.5 39L16.5 39c-.8 0-1.5-.7-1.5-1.5v-19c0-.8.7-1.5 1.5-1.5l0 0c.8 0 1.5.7 1.5 1.5v19C18 38.3 17.3 39 16.5 39z"/>
+                          </svg>
+                      </a>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+
+        <form action="{% url 'homepage' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="date" name="date" id="date" required>
+            <input type="time" name="time" id="time" required>
+
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option selected value="5">5</option>
+            </select>
+
+            <input autofocus type="text" placeholder="Add Todo" name="description" id="description">
+            <label for="file">
+                <svg width="22" height="24" viewBox="0 0 22 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12L12 21C6 27 -3 18 3 12L12 3.00001C16 -0.999993 22 5.00001 18 9.00001L9 18C7 20 4 17 6 15L15 6.00001" stroke="#9333EA" stroke-width="2"/>
+                </svg>
+            </label>
+            <input type="file" name="file" id="file">
+            <label for="submitt">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M0 9C0 6 3 3 9 3C15 3 18 6 18 9C18 12 15 15 9 15C3 15 0 12 0 9ZM9 4.5C8.8 4.5 8.6 4.6 8.5 4.7C8.3 4.9 8.25 5.05 8.25 5.25V8.25H5.25C5.05 8.25 4.85 8.35 4.75 8.5C4.55 8.7 4.5 8.85 4.5 9C4.5 9.2 4.6 9.4 4.75 9.5C4.85 9.7 5.05 9.75 5.25 9.75H8.25V12.75C8.25 12.95 8.35 13.15 8.5 13.25C8.7 13.45 8.85 13.5 9 13.5C9.2 13.5 9.4 13.4 9.5 13.25C9.7 13.05 9.75 12.95 9.75 12.75V9.75H12.75C12.95 9.75 13.15 9.65 13.25 9.5C13.45 9.3 13.5 9.15 13.5 9C13.5 8.8 13.4 8.6 13.25 8.5C13.05 8.3 12.95 8.25 12.75 8.25H9.75V5.25C9.75 5.05 9.65 4.85 9.5 4.75C9.3 4.55 9.15 4.5 9 4.5Z" fill="#9333EA"/>
+
+                </svg>
+            </label>
+            <input type="submit" id="submitt" name="submitt"></input>
+        </form>                      
+    </div>
+</main>
+{% endblock body %}

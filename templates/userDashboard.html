@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+<title>User Dashboard - TaskMate</title>
+{% endblock title %}
+
+{% block body %}
+<!-- Link to the dashboard CSS file -->
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+
+<div class="dashboard-container">
+    <header>
+        <h2>Welcome to Your Dashboard, {{ request.session.username }}</h2>
+    </header>
+
+    <div class="main-content">
+        <div class="task-container">
+            <h2>Your Tasks</h2>
+            <ul class="task-list">
+                {% if delete_message and deleted_task %}
+                    <li class="task alert alert-warning">
+                        <strong>{{ delete_message }}</strong><br>
+                        <em>Task Details:</em><br>
+                        - Description: {{ deleted_task.description }}<br>
+                        - Due: {{ deleted_task.deadlineDate }} at {{ deleted_task.deadlineTime }} - Priority: {{ deleted_task.priority }}
+                    </li>
+                {% else %}
+                    {% for task in user_tasks %}
+                        <li class="task">
+                            <div class="task-details">
+                                <strong>{{ task.description }}</strong> - 
+                                <span class="task-due">Due: {{ task.deadlineDate }} at {{ task.deadlineTime }}</span> - 
+                                <span class="task-priority">Priority: {{ task.priority }}</span>
+                            </div>
+                            <div class="task-status">
+                                <span class="status-label">Status: {{ task.status }}</span>
+                                {% if task.status == 'In Progress' %}  <!-- Check if the task is accepted -->
+                                    <form method="POST" action="{% url 'cancelTask' task.taskId %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="cancel-button">Cancel</button>
+                                    </form>
+                                    <form method="POST" action="{% url 'finishTask' task.taskId %}" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="done-button">Done</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li class="task">No tasks available.</li>
+                    {% endfor %}
+                {% endif %}
+            </ul>
+        </div>
+
+        <div class="admin-task-container">
+            <h2>View Tasks by Admin</h2>
+            <form method="GET" action="{% url 'userDashboard' %}">
+                <label for="admin">Select Admin:</label>
+                <select name="admin" id="admin" onchange="this.form.submit()">
+                    <option value="">-- Select Admin --</option>
+                    {% for admin in admins %}
+                        <option value="{{ admin.username }}" {% if admin.username == selected_admin %}selected{% endif %}>
+                            {{ admin.fullName }} ({{ admin.username }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+
+            <h2>Tasks Created by Selected Admin</h2>
+            <ul class="task-list">
+                {% for task in admin_tasks %}
+                    <li class="task">
+                        <strong>{{ task.description }}</strong> - Due: {{ task.deadlineDate }} at {{ task.deadlineTime }} - Priority: {{ task.priority }}
+                        <form method="POST" action="{% url 'acceptTask' task.taskId %}" style="display:inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="accept-button">Accept</button>
+                        </form>
+                    </li>
+                {% empty %}
+                    <li class="task">No tasks available for the selected admin.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock body %}

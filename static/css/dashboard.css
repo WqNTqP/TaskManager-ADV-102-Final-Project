@@ -1,0 +1,195 @@
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1200px;
+    margin-left: -20px; /* Move the container 20px to the left */
+    margin-right: auto; /* Keep right margin auto to maintain responsiveness */
+  }
+  
+  /* Header Styles */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically in the center */
+    background-color: var(--dark-themecolor);
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px;
+    color: white;
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    margin: 0; /* Remove default margin */
+  }
+  
+  header a {
+    color: white; /* Ensure links are white for visibility */
+    text-decoration: none; /* Remove underline from links */
+    margin-left: 20px; /* Add space between links */
+  }
+  
+  header a:hover {
+    text-decoration: underline; /* Underline on hover for better UX */
+  }
+  
+  /* Main Content Styles */
+  .main-content {
+    display: flex;
+    flex-direction: column; /* Stack task containers vertically */
+    width: 100%; /* Full width */
+  }
+  
+  /* Task Container Styles */
+  .task-container, .admin-task-container {
+    background-color: #f9f9f9; /* Light background for contrast */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Padding inside the container */
+    margin: 20px 0; /* Margin between containers */
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px; /* Subtle shadow for depth */
+  }
+  
+  .task-container h2, .admin-task-container h2 {
+    font-size: 1.5rem; /* Heading size */
+    color: #443C68; /* Darker color for headings */
+    margin-bottom: 10px; /* Space below headings */
+  }
+  
+  .task-list {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+  }
+  
+  .task {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between text and button */
+    align-items: center; /* Center items vertically */
+    background-color: #f9f9f9; /* Light background for tasks */
+    border: 1px solid #e0e0e0; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 15px; /* Padding inside the task */
+    margin: 10px 0; /* Margin between tasks */
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition for hover effects */
+}
+  
+  .task:hover {
+    background-color: #f1f1f1; /* Light gray on hover */
+  }
+
+  /* Accept Button Styles */
+.accept-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding for the button */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline-block for proper spacing */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin around the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover effects */
+}
+
+/* Hover Effect */
+.accept-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+/* Active Effect */
+.accept-button:active {
+    background-color: #3e8e41; /* Even darker green when clicked */
+    transform: scale(0.95); /* Slightly shrink the button when clicked */
+}
+
+  /* Dark Mode Styles */
+.dark-mode {
+    background-color: #3e4451; /* Dark background */
+    color: #ffffff; /* Default text color for dark mode */
+}
+
+.dark-mode header {
+    background-color: #18122B; /* Darker header background */
+}
+
+.dark-mode .task-container {
+    background-color: #4c4074; /* Darker header background */
+}
+
+.dark-mode   .task-container h2  {
+    background-color: #ffffff; /* Darker header background */
+}
+
+
+.dark-mode .task {
+    background-color: #c1b2f7; /* Dark background for tasks */
+    color: #ffffff; /* Light text color for tasks */
+}
+
+.dark-mode .task-list {
+    color: #ffffff; /* Ensure task list text is white */
+}
+
+.dark-mode .task-list li {
+    color: #ffffff; /* Ensure each task item is white */
+}
+
+.dark-mode .admin-task-container label,
+.dark-mode .admin-task-container select {
+    color: #000000; /* Light color for labels and select options */
+}
+
+.dark-mode .admin-task-container select {
+    background-color: #c1b2f7; /* Dark background for select */
+    color: #ffffff; /* White text for select options */
+}
+
+/* Additional styles for links */
+.dark-mode a {
+    color: #ffffff; /* Light color for links */
+}
+
+.dark-mode a:hover {
+    color: #cccccc; /* Slightly lighter on hover */
+}
+
+.cancel-button {
+    background-color: #f44336; /* Red background for cancel */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px 15px; /* Padding for the button */
+    text-align: center; /* Center the text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline-block for proper spacing */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margin around the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.cancel-button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+.task-status .done-button {
+  background-color: #4CAF50; /* Green background for done */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 15px; /* Padding for the button */
+  text-align: center; /* Center the text */
+  text-decoration: none; /* No underline */
+  display: inline-block; /* Inline-block for proper spacing */
+  font-size: 16px; /* Font size */
+  margin: 4px 2px; /* Margin around the button */
+  cursor: pointer; /* Pointer cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.task-status .done-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}

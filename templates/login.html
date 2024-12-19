@@ -1,0 +1,37 @@
+{% load static %}
+{% include 'base.html' %}
+
+{% block title %}
+    <title>TaskMate - Login Page</title>
+{% endblock title %}
+
+{% block body %}
+
+{% if error %}
+    <div id="noti" class="error" style="display: flex;">
+        <p>{{ error }}</p>
+        <img src='{% static "images/reject.png" %}' height="20" width="20" alt="Reject">
+    </div>
+{% endif %}
+
+<section class="logincontainer">
+    <h1 class="bigheading">TaskManager</h1>
+    <div class="loginbox">
+        <h2>Login</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input id="username" type="text" name="username" placeholder="Username" required maxlength="30">
+            
+            <label for="password">Password</label>
+            <input id="password" type="password" name="password" placeholder="Password" required minlength="6" maxlength="30">
+            
+            <a class="info" href="{% url 'resetPassword' %}">Forgot Password?</a>
+            <button type="submit">Login</button>
+            
+            <p class="info">Don't have an account? <a href='{% url "signUp" %}' class="active">Register</a></p>
+        </form>
+    </div>
+</section>
+
+{% endblock body %}

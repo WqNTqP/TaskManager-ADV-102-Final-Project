@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>My Day - TaskMate</title>
+{% endblock title %}
+
+{% block body %}
+<h1 class="intro">My Day - Tasks for Today</h1>
+<div class="todo-box">
+    {% if tasks %}
+        {% for task in tasks %}
+        <div class="task">
+            <h3>{{ task.description }}</h3>
+            <h5>{{ task.deadlineDate }} {{ task.deadlineTime }} -> {{ task.priority }}</h5>
+            <div class="btns">
+                <a href="/edit/{{ task.taskId }}">
+                    <svg> <!-- Edit icon SVG here --> </svg>
+                </a>
+                <a href="/delete/{{ task.taskId }}">
+                    <svg> <!-- Delete icon SVG here --> </svg>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No tasks for today!</p>
+    {% endif %}
+</div>
+{% endblock body %}

@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}">  
+    <script src="{% static '/js/script.js' %}"></script>
+    {% block title %}
+    
+    {% endblock title %}
+</head>
+<body id="main-body">
+    <header>
+        <a href="/"><h1 class="logo">TaskManager</h1></a>
+        <ul class="navlinks">
+            <a href="/"><li class="active">Todo</li></a>
+            {% if request.session.username %}
+            <a href="{% url 'logOut' %}"><li>Logout</li></a>
+            {% endif %}
+        </ul>
+        <div class="optionsicon">
+            <a><img src="{% static '/images/crescent.png' %}" alt="Change Theme"></a>
+            <a href="{% url 'profilePage' %}"><img src="{% static '/images/user (1).png' %}" alt="Change Theme"></a>
+        </div>
+    </header>
+    {% block body %}
+        
+    {% endblock body %}
+</body>
+</html>
