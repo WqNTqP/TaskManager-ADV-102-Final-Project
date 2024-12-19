@@ -1037,31 +1037,3 @@ input[type=submit].profbtn{
   color: white; /* Optional: Change text color for better visibility */
 }
 
-
-.btns {
-  display: flex; /* Use flexbox for alignment */
-  align-items: center; /* Center items vertically */
-  gap: 10px; /* Space between buttons */
-}
-
-.btns a {
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Prevent SVGs from overflowing */
-}
-
-
-.btns a:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
-}
-
-.btns svg {
-  width: 100%; /* Use full width of the parent */
-  height: 100%; /* Use full height of the parent */
-  max-width: 20px; /* Add a max width for safety */
-  max-height: 20px; /* Add a max height for safety */
-  flex-shrink: 0; /* Prevent shrinking if parent is smaller */
-}
